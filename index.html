@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>websocks</title>
+  <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+  <script src="main.js"></script>
+</head>
+<body>
+  <h1 id="heading">Score:</h1>
+  <h1 id="score">0</h1>
+  <button id="plus">+(plus)</button>
+  <button id="minus">-(minus)</button>
+  <script>
+    var socket = io();
+    var score = document.getElementById('score');
+
+    var plus = document.getElementById('plus');
+    var minus = document.getElementById('minus');
+
+    plus.addEventListener("click", ()=>{
+      socket.emit('score plus');
+    });
+
+    minus.addEventListener("click", ()=>{
+      socket.emit('score minus');
+    });
+
+	socket.on('score plus', (value)=>{
+		score.innerHTML = value;
+	});
+
+	socket.on('score minus', (value)=>{
+		score.innerHTML = value;
+	});
+  </script>
+</body>
+</html>
